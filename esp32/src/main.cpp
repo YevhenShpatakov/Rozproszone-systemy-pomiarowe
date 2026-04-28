@@ -9,6 +9,7 @@ PubSubClient mqttClient(espClient);
 
 String deviceId;
 String topic;
+uint32_t seqCounter = 0;
 
 String generateDeviceIdFromEfuse() {
     uint64_t chipId = ESP.getEfuseMac();
@@ -59,11 +60,14 @@ void connectMQTT() {
 void publishMeasurement() {
     StaticJsonDocument<256> doc;
 
+    doc["schema_version"] = 1;
+    doc["group_id"] = MQTT_GROUP;
     doc["device_id"] = deviceId;
     doc["sensor"] = "temperature";
     doc["value"] = 24.5;
     doc["unit"] = "C";
-    doc["ts_ms"] = millis();
+    doc["ts_ms"] = millis();   // wariant uproszczony do testow
+    doc["seq"] = seqCounter++;
 
     char payload[256];
     serializeJson(doc, payload);

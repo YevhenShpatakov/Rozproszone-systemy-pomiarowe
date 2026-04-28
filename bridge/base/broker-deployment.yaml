@@ -1,0 +1,32 @@
+#! broker-deployment.yaml
+# Generated code, do not edit
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: broker
+    namespace: rsp-main-project
+    labels:
+        com.docker.compose.project: rsp_main_project
+        com.docker.compose.service: broker
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            com.docker.compose.project: rsp_main_project
+            com.docker.compose.service: broker
+    strategy:
+        type: Recreate
+    template:
+        metadata:
+            labels:
+                com.docker.compose.project: rsp_main_project
+                com.docker.compose.service: broker
+                com.docker.compose.network.default: "true"
+        spec:
+            containers:
+                - name: broker
+                  image: broker:v1
+                  imagePullPolicy: IfNotPresent
+                  ports:
+                    - name: broker-1883
+                      containerPort: 1883

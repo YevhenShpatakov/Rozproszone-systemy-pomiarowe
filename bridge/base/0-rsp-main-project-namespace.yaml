@@ -1,0 +1,8 @@
+#! 0-rsp-main-project-namespace.yaml
+# Generated code, do not edit
+apiVersion: v1
+kind: Namespace
+metadata:
+    name: rsp-main-project
+    labels:
+        com.docker.compose.project: rsp_main_project

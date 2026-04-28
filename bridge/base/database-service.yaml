@@ -1,0 +1,21 @@
+#! database-service.yaml
+# Generated code, do not edit
+apiVersion: v1
+kind: Service
+metadata:
+    name: database-published
+    namespace: rsp-main-project
+    labels:
+        com.docker.compose.project: rsp_main_project
+        com.docker.compose.service: database
+spec:
+    selector:
+        com.docker.compose.project: rsp_main_project
+        com.docker.compose.service: database
+    ports:
+        - name: database-5432
+          port: 5432
+          protocol: TCP
+          targetPort: database-5432
+
+# check if there is at least one published port

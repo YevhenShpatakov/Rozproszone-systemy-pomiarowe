@@ -1,0 +1,32 @@
+#! database-deployment.yaml
+# Generated code, do not edit
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: database
+    namespace: rsp-main-project
+    labels:
+        com.docker.compose.project: rsp_main_project
+        com.docker.compose.service: database
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            com.docker.compose.project: rsp_main_project
+            com.docker.compose.service: database
+    strategy:
+        type: Recreate
+    template:
+        metadata:
+            labels:
+                com.docker.compose.project: rsp_main_project
+                com.docker.compose.service: database
+                com.docker.compose.network.default: "true"
+        spec:
+            containers:
+                - name: postgres
+                  image: database:v1
+                  imagePullPolicy: IfNotPresent
+                  ports:
+                    - name: database-5432
+                      containerPort: 5432

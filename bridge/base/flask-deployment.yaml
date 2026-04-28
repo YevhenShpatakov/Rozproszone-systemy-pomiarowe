@@ -1,0 +1,32 @@
+#! flask-deployment.yaml
+# Generated code, do not edit
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: flask
+    namespace: rsp-main-project
+    labels:
+        com.docker.compose.project: rsp_main_project
+        com.docker.compose.service: flask
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            com.docker.compose.project: rsp_main_project
+            com.docker.compose.service: flask
+    strategy:
+        type: Recreate
+    template:
+        metadata:
+            labels:
+                com.docker.compose.project: rsp_main_project
+                com.docker.compose.service: flask
+                com.docker.compose.network.default: "true"
+        spec:
+            containers:
+                - name: api
+                  image: api:v1
+                  imagePullPolicy: IfNotPresent
+                  ports:
+                    - name: flask-5001
+                      containerPort: 5001

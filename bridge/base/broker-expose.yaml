@@ -1,0 +1,18 @@
+#! broker-expose.yaml
+# Generated code, do not edit
+apiVersion: v1
+kind: Service
+metadata:
+    name: broker
+    namespace: rsp-main-project
+    labels:
+        com.docker.compose.project: rsp_main_project
+        com.docker.compose.service: broker
+spec:
+    selector:
+        com.docker.compose.project: rsp_main_project
+        com.docker.compose.service: broker
+    ports:
+        - name: broker-1883
+          port: 1883
+          targetPort: broker-1883

@@ -1,0 +1,19 @@
+#! flask-service.yaml
+# Generated code, do not edit
+apiVersion: v1
+kind: Service
+metadata:
+    name: flask-published
+    namespace: rsp-main-project
+    labels:
+        com.docker.compose.project: rsp_main_project
+        com.docker.compose.service: flask
+spec:
+    selector:
+        com.docker.compose.project: rsp_main_project
+        com.docker.compose.service: flask
+    ports:
+        - name: flask-5001
+          port: 5001
+          protocol: TCP
+          targetPort: flask-5001

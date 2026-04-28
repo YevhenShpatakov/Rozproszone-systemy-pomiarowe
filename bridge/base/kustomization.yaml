@@ -1,0 +1,16 @@
+#! kustomization.yaml
+# Generated code, do not edit
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+    - 0-rsp-main-project-namespace.yaml
+    - broker-deployment.yaml
+    - broker-expose.yaml
+    - broker-service.yaml
+    - database-deployment.yaml
+    - database-expose.yaml
+    - database-service.yaml
+    - default-network-policy.yaml
+    - flask-deployment.yaml
+    - flask-expose.yaml
+    - flask-service.yaml

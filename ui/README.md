@@ -8,6 +8,7 @@ Dashboard pełni rolę klienta REST dla backendu Flask i funkcjonalnie zastępuj
 - pobiera ostatni pomiar (`/measurements/latest`),
 - pobiera historię pomiarów (`/measurements/history`),
 - umożliwia filtrowanie po `device_id`, `sensor` i `limit`,
+- obsługuje sensory `temperature` oraz `humidity` publikowane przez DHT22,
 - pokazuje dane liczbowo, tabelarycznie i na wykresie,
 - obsługuje błędy połączenia, brak danych i odpowiedzi HTTP 401/404/500.
 
@@ -24,67 +25,43 @@ Sprawdź API:
 
 ```bash
 curl http://localhost:5001/health
-curl http://localhost:5001/devices
+curl -u student:student http://localhost:5001/devices
 ```
 
-## Instalacja UI
+## Uruchomienie UI
 
-Z poziomu głównego folderu projektu:
-
-```bash
-cd ui
-python -m venv .venv
-.venv\Scripts\activate
-pip install -r requirements.txt
-```
-
-W Git Bash aktywacja środowiska może wyglądać tak:
+Z poziomu folderu `ui`:
 
 ```bash
 source .venv/Scripts/activate
-```
-
-## Uruchomienie
-
-Z głównego folderu projektu:
-
-```bash
-streamlit run ui/app.py
-```
-
-Albo z folderu `ui`:
-
-```bash
 streamlit run app.py
 ```
 
-Domyślny adres API:
+Jeżeli środowisko nie istnieje:
 
-```text
-http://localhost:5001
+```bash
+python -m venv .venv
+source .venv/Scripts/activate
+pip install -r requirements.txt
+streamlit run app.py
 ```
 
 ## Basic Auth
 
-Aktualna wersja API może działać bez logowania. Po wykonaniu laboratorium 10 dashboard obsługuje Basic Auth przez pola:
+Po wykonaniu laboratorium 10 dashboard obsługuje Basic Auth przez pola:
 
 - `Username`
 - `Password`
 
-Jeżeli API zwróci `401 Unauthorized`, wpisz poprawny login i hasło w panelu bocznym.
-
-## Struktura plików
+Domyślne dane testowe API:
 
 ```text
-ui/
-├── app.py
-├── api_client.py
-├── config.py
-├── requirements.txt
-└── README.md
+student / student
 ```
 
-## Ograniczenia
+## Sensory
 
-- Pole `ts_ms` może być czasem od startu ESP32 (`millis()`), więc wykres pokazuje dane głównie względem numeru próbki.
-- UI jest alternatywnym klientem REST w Pythonie; instrukcja laboratoryjna formalnie opisuje wariant LabVIEW.
+Po dodaniu czujnika DHT22 dashboard pozwala filtrować dane po:
+
+- `temperature` — temperatura w °C,
+- `humidity` — wilgotność względna w %.

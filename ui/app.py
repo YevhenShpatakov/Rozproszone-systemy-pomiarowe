@@ -28,6 +28,7 @@ from config import (
     DEFAULT_LIMIT,
     DEFAULT_PASSWORD,
     DEFAULT_SENSOR,
+    AVAILABLE_SENSORS,
     DEFAULT_TIMEOUT,
     DEFAULT_USERNAME,
 )
@@ -282,10 +283,15 @@ with config_col1:
         st.session_state["selected_device"] = selected_device
 
 with config_col2:
-    sensor = st.text_input(
+    current_sensor = st.session_state.get("sensor", DEFAULT_SENSOR)
+    if current_sensor not in AVAILABLE_SENSORS:
+        current_sensor = DEFAULT_SENSOR
+
+    sensor = st.selectbox(
         "Sensor",
-        value=st.session_state.get("sensor", DEFAULT_SENSOR),
-        placeholder="np. temperature",
+        options=AVAILABLE_SENSORS,
+        index=AVAILABLE_SENSORS.index(current_sensor),
+        help="Po dodaniu DHT22 dostępne są pomiary temperatury i wilgotności.",
     )
     st.session_state["sensor"] = sensor
 

@@ -143,11 +143,9 @@ Przykładowa zawartość:
 
 ```cpp
 #pragma once
-
-#define WIFI_SSID "NAZWA_SIECI_WIFI"
-#define WIFI_PASSWORD "HASLO_WIFI"
-
-#define MQTT_HOST "192.168.31.112"
+#define WIFI_SSID "esp_lab"
+#define WIFI_PASSWORD "12345678"
+#define MQTT_HOST "156.17.45.61"
 #define MQTT_PORT 1883
 #define MQTT_GROUP "g02"
 ```

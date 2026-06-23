@@ -11,6 +11,29 @@ def hello_world():
 def health():
     return jsonify({"status": "ok"})
 
+@app.route("/devices", methods=["GET"])
+def get_devices():
+    conn = get_connection()
+    cur = conn.cursor()
+
+    cur.execute("""
+        SELECT DISTINCT device_id
+        FROM measurements
+        WHERE device_id IS NOT NULL
+        ORDER BY device_id
+    """)
+
+    rows = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    devices = [row[0] for row in rows]
+
+    return jsonify({
+        "devices": devices
+    })
+
 @app.route("/measurements", methods=["GET"])
 def get_measurements():
     conn = get_connection()

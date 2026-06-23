@@ -129,3 +129,36 @@ Weryfikację wykonano z użyciem MQTT Explorer. Sprawdzono:
 ## 10. Podsumowanie
 
 Przyjęty kontrakt danych zapewnia spójny sposób publikacji wiadomości pomiarowych z ESP32 do brokera MQTT. Uzgodniona struktura topicu i format JSON umożliwiają późniejszą walidację danych oraz integrację z ingestorem i bazą danych.
+
+## Topic statusowy urządzenia
+
+Oprócz topiców pomiarowych wprowadzono topic techniczny statusu urządzenia:
+
+```text
+lab/<group_id>/<device_id>/status
+```
+
+Przykład:
+
+```text
+lab/g02/esp32-E8247EB865E4/status
+```
+
+Przykładowy payload:
+
+```json
+{
+  "schema_version": 1,
+  "group_id": "g02",
+  "device_id": "esp32-E8247EB865E4",
+  "status": "online",
+  "ts_ms": 123456
+}
+```
+
+Pole `status` może przyjmować między innymi wartości:
+
+- `online` – urządzenie połączyło się z brokerem MQTT,
+- `offline` – komunikat Last Will opublikowany przez broker po niepoprawnym rozłączeniu urządzenia.
+
+Komunikaty statusowe nie są zapisywane do tabeli `measurements`; ingestor je ignoruje, ponieważ nie zawierają pól `sensor` i `value`.
